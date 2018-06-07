@@ -21,22 +21,30 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   console.log('In song-router POST to create');
+  // Post generally uses the request body to get the data to add/insert/create
+
   res.sendStatus(200);
 });
 
 router.put('/', (req, res) => {
+  // Put generally uses request params to identify the thing to update
+
+  // And also uses the request body to get the data to update
+
   console.log('In song-router PUT to update');
   res.sendStatus(200);
 });
 
 router.delete('/:id', (req, res) => {
-  const taco = req.params.id;
-  console.log('In song-router DELETE to delete');
-  const queryText = 'DELETE FROM songs WHERE artist=$2 id=$1';
+  // Delete generally uses request params to identify the thing to delete
+  const songId = req.params.id;
+  console.log('In song-router DELETE to delete the song with id:', songId);
+
+  const queryText = 'DELETE FROM songs WHERE id=$1';
   // Passing two things to the query. 1) the query text
-  // 2) the values to substitute into the query for the $1, $2, etc. 
+  // 2) an array of values to substitute into the query for the $1, $2, etc. 
   //    when subbing in multiple things, the order is important.
-  pool.query(queryText, [taco, 'someone'])
+  pool.query(queryText, [songId])
     .then((results)=>{
       console.log('Successful delete of song', results);
       res.sendStatus(200);
