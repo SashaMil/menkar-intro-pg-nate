@@ -6,8 +6,8 @@ app.use( bodyParser.urlencoded({extended: true}) );
 app.use( bodyParser.json() );
 
 //Setup router
-// const songRouter = require('./routes/song-router');
-// app.use('/song', songRouter);
+const songRouter = require('./routes/song-router');
+app.use('/song', songRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen( PORT, function() {
