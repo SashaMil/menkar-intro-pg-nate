@@ -29,9 +29,21 @@ router.put('/', (req, res) => {
   res.sendStatus(200);
 });
 
-router.delete('/', (req, res) => {
+router.delete('/:id', (req, res) => {
+  const taco = req.params.id;
   console.log('In song-router DELETE to delete');
-  res.sendStatus(200);
+  const queryText = 'DELETE FROM songs WHERE artist=$2 id=$1';
+  // Passing two things to the query. 1) the query text
+  // 2) the values to substitute into the query for the $1, $2, etc. 
+  //    when subbing in multiple things, the order is important.
+  pool.query(queryText, [taco, 'someone'])
+    .then((results)=>{
+      console.log('Successful delete of song', results);
+      res.sendStatus(200);
+    }).catch((err)=>{
+      console.log('Error deleting of song', err);
+      res.sendStatus(500);
+    })
 });
 
 module.exports = router;
