@@ -2,11 +2,21 @@ const express = require('express');
 const router = express.Router();
 
 // Get our connection to the database
-//const pool = require('../modules/pool');
+const pool = require('../modules/pool');
 
 router.get('/', (req, res) => {
   console.log('In song-router GET to read');
-  res.sendStatus(200);
+
+  // Build a string for the query
+  const queryText = 'SELECT * FROM songs';
+  pool.query(queryText)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log('Error getting all songs: ', err);
+      res.sendStatus(500);
+    })
 });
 
 router.post('/', (req, res) => {
