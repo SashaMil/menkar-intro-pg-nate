@@ -36,7 +36,6 @@ router.post('/', (req, res)=> {
 });
 
 router.put('/:id', (req, res)=> {
-   console.log('Handling PUT for /song', req.body);
    const id = req.params.id;
    const queryText = 'UPDATE songs SET artist = $2, track = $3, published = $4, rank = $5 WHERE id = $1;';
    console.log(queryText);
@@ -52,7 +51,7 @@ router.put('/:id', (req, res)=> {
 router.delete('/:id', (req, res)=> {
    console.log('Handling DELETE for /song');
    const id = req.params.id;
-   const queryText = `DELETE FROM songs WHERE id = $1`;
+   const queryText = `DELETE FROM songs WHERE artist = $1`;
    pool.query(queryText, [id]).then((result)=> {
       console.log('Deleted from /song', id);
       res.sendStatus(200);

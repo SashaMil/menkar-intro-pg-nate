@@ -1,0 +1,32 @@
+<div class="container" id="songifyButtonContainer">
+  <h2>Track List</h2>
+  <nav class="songifyButton">
+    <button ng-href="#!/songify">Songify</button>
+  </nav>
+</div>
+
+<section ng-controller="songController as vm">
+  <input type="text" placeholder="Artist" ng-model="vm.artist">
+  <input type="text" placeholder="Track Title" ng-model="vm.track">
+  <input type="text" placeholder="E.G. MM/DD/YYYY" ng-model="vm.published">
+  <button type="button" ng-click="vm.postSongs()">Submit New Track</button>
+  <div class="songTable">
+    <table class="table table-striped">
+      <thead>
+        <th>Rank</th>
+        <th>Artist</th>
+        <th>Track</th>
+        <th>Release Date</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="song in vm.allSongs">
+          <td>{{song.rank}}</td>
+          <td>{{song.artist}}</td>
+          <td>{{song.track}}</td>
+          <td>{{song.published}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</section>

@@ -3,5 +3,5 @@ CREATE TABLE songs(
 	rank integer,
 	artist varchar(80),
 	track varchar(120),
-	published date
+	published varchar(80)
 );
